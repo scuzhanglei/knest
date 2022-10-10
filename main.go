@@ -22,8 +22,6 @@ const (
 	VirtinkProviderVersion = "v0.4.0"
 )
 
-var version string
-
 func main() {
 	var (
 		targetNamespace                          = "default"
@@ -272,15 +270,6 @@ func main() {
 		},
 	}
 
-	cmdVersion := &cobra.Command{
-		Use:   "version",
-		Short: "Print knest version.",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Printf("knest version: %#v, virtink version: %#v, cluster-api-provider-virtink version: %#v\n", version, VirtinkVersion, VirtinkProviderVersion)
-			return nil
-		},
-	}
-
 	rootCmd := &cobra.Command{
 		Use: "knest",
 	}
@@ -289,7 +278,6 @@ func main() {
 	rootCmd.AddCommand(cmdDelete)
 	rootCmd.AddCommand(cmdList)
 	rootCmd.AddCommand(cmdScale)
-	rootCmd.AddCommand(cmdVersion)
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
